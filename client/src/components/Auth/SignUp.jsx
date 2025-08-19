@@ -19,11 +19,11 @@ const SignUp = () => {
   const formSubmit = async (data) => {
     try {
       await dispatch(registerUser(data)).unwrap();
+      reset();
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
-    reset();
-    navigate("/");
   };
   return (
     <>

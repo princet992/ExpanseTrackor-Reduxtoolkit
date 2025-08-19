@@ -37,7 +37,7 @@ export const userLogin = async (req, res) => {
         userId: user._id,
       });
     } else {
-      res.status(400).send({ message: "Wrong email password" });
+      res.status(400).send({ message: "Invalid email password" });
     }
   } catch (error) {
     console.log("error", error.message);

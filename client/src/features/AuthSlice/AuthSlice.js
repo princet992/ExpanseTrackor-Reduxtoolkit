@@ -8,7 +8,7 @@ export const registerUser = createAsyncThunk("registerUser", async (data, { reje
     // console.log(res, "registerUser");
     return res.data;
   } catch (error) {
-    return rejectWithValue(error.response.data || { message: "Failed to register" });
+    return rejectWithValue({ message: error.response?.data?.message || "Failed to register" });
   }
 });
 
@@ -18,7 +18,8 @@ export const loginUser = createAsyncThunk("loginUser", async (data, { rejectWith
     const res = await api.post("/loginAuth", data);
     return res.data;
   } catch (error) {
-    return rejectWithValue(error.response.data || { message: "Login failed" });
+    console.log(error.response.data);
+    return rejectWithValue({message: error.response?.data.message || "Login failed"});
   }
 });
 
