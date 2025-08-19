@@ -4,7 +4,7 @@
   "main": "index.js",
   "type":"module",
   "scripts": {
-    "start": "nodemon expanseIndex.js"
+    "start": "node expanseIndex.js"
   },
   "keywords": [],
   "author": "",
