@@ -9,14 +9,7 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-  origin: [process.env.CLIENT_URL, "http://localhost:5173", "http://localhost:3000"], 
-  methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
-  credentials: true, 
-}));
-
-
-app.get("/health", (_, res) => res.status(200).send("ok")); 
+app.use(cors());
 
 //create transaction
 app.post("/txHistory", createExpanseData);
