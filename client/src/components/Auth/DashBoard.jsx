@@ -2,9 +2,9 @@ import { useSelector } from "react-redux";
 import ExpanseTracker from "../../pages/ExpanseTracker";
 
 const DashBoard = () => {
-  const { isLoading } = useSelector((state) => state.Auth);
+  const { isLoading } = useSelector((state) => state.expanseData);
 
-  
+
   if (isLoading) {
     return <div className="text-center py-4 text-red-800 font-bold">Loading,Please wait...</div>;
   }
