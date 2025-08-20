@@ -65,7 +65,7 @@ const Header = () => {
             {theme === "dark" ? (
               <Sun className="text-yellow-300" size={20} />
             ) : (
-              <Moon className="text-gray-900" size={20} />
+              <Moon className="text-gray-900 hover:bg-yellow-300 hover:text-black" size={20} />
             )}
           </button>
 
