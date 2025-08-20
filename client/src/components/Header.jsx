@@ -58,7 +58,7 @@ const Header = () => {
           <button
             onClick={handleToggleTheme}
             className={`p-1 rounded-full transition shadow-md  ${
-              theme === "dark" ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-100 hover:bg-gray-200"
+              theme === "dark" ? "bg-gray-700 hover:bg-yellow-300 hover:text-black" : "bg-gray-100 hover:bg-yellow-300 hover:text-black"
             }`}
             title="Toggle Theme"
           >
