@@ -3,31 +3,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../features/AuthSlice/AuthSlice";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.Auth);
+  const { token, isLoading } = useSelector((state) => state.Auth);
   const { theme } = useSelector((state) => state.Theme);
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [success, setSuccess] = useState("");
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
   } = useForm();
 
   const formSubmit = async (data) => {
     try {
       await dispatch(loginUser(data)).unwrap();
+      setSuccess("Login successful 🎉 Redirecting...");
+      setError("");
     } catch (error) {
-      setError(error.message || "somwthing went wrong");
+      setError(error.message || "Something went wrong");
+      setSuccess("");
     }
     reset();
   };
   useEffect(() => {
     if (token) {
-      navigate("/dashBoard", { replace: true });
+      setTimeout(() => navigate("/dashBoard", { replace: true }), 1000);
     }
   }, [token]);
   return (
@@ -46,16 +52,23 @@ const Login = () => {
           }`}
         >
           {error && <p className="text-red-500 text-center mb-3">{error}</p>}
+          {success && <p className="text-green-500 text-center mb-3">{success}</p>}
 
-          <h2 className="text-2xl font-bold mb-5 text-center drop-shadow-sm">Login</h2>
-
-          <div className="mb-4">
+          <h2 className="text-3xl font-extrabold mb-5 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
+            Login
+          </h2>
+          <p className={`text-sm text-center mb-6 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
+            Welcome back! Please login to your account.
+          </p>
+          <div className="mb-4 relative">
             <label className="block mb-1 font-medium">Email</label>
+            <Mail className="absolute left-3 top-10 text-gray-500" size={20} />
             <input
               type="email"
               placeholder="Enter your email"
               autoComplete="email"
-              className={`w-full px-3 py-2 rounded-lg transition outline-none shadow-sm ${
+              aria-invalid={!!errors.email}
+              className={`w-full px-3 pl-10 py-2 rounded-lg transition outline-none shadow-sm ${
                 theme === "dark"
                   ? "bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-300"
                   : "bg-gray-100 text-gray-900 placeholder-gray-600 focus:ring-2 focus:ring-indigo-400"
@@ -65,31 +78,52 @@ const Login = () => {
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label className="block mb-1 font-medium">Password</label>
+            <Lock className="absolute left-3 top-10 text-gray-500" size={20} />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
               autoComplete="current-password"
-              className={`w-full px-3 py-2 rounded-lg transition outline-none shadow-sm ${
+              aria-invalid={!!errors.password}
+              className={`w-full px-3 pl-10 py-2 rounded-lg transition outline-none shadow-sm ${
                 theme === "dark"
                   ? "bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-300"
                   : "bg-gray-100 text-gray-900 placeholder-gray-600 focus:ring-2 focus:ring-indigo-400"
               }`}
               {...register("password", { required: "Password is required" })}
             />
+            <button
+              type="button"
+              className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowPassword((prev) => !prev)}
+              tabIndex={-1}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
           </div>
 
           <button
             type="submit"
+            disabled={!isValid || isLoading}
             className={`w-full py-2 mt-3 rounded-lg font-semibold transition shadow-md ${
               theme === "dark"
                 ? "bg-yellow-400 text-gray-900 hover:bg-yellow-300"
                 : "bg-indigo-600 text-white hover:bg-indigo-700"
             }`}
           >
-            Login
+            {isLoading ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="4" fill="none" />
+                  <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="4" />
+                </svg>
+                Logging in...
+              </span>
+            ) : (
+              "Login"
+            )}
           </button>
 
           <p className="text-sm mt-4 text-center">
