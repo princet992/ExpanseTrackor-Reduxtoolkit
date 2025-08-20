@@ -64,7 +64,7 @@ const AuthSlice = createSlice({
     builder.addMatcher(
       (action) => action.type.endsWith("/pending"),
       (state) => {
-        state.isLoading = true;
+        // state.isLoading = true;
       }
     );
     builder.addMatcher(
