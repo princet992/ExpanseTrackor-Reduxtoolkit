@@ -49,6 +49,7 @@ const AuthSlice = createSlice({
   extraReducers: (builder) => {
     //loginUSer
     builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.isLoading = false;
       // console.log(action.payload, "login Payload");
       state.userName = action.payload.userName;
       state.email = action.payload.email;
