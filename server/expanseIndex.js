@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import path from "path";
 import { createExpanseData, getExpanseData } from "./controller/ExpanseController.js";
 import { registerUsers, userLogin } from "./controller/AuthenticationController.js";
 
@@ -11,21 +10,11 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: "https://localhost:5173",
+  origin: ["https://expanse992.onrender.com"], 
   methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
-
-  credentials: true
+  credentials: true, 
 }));
 
-// Serve React build in production
-if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, "client/dist")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/dist", "index.html"));
-  });
-}
 
 app.get("/health", (_, res) => res.status(200).send("ok")); 
 
