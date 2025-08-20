@@ -12,6 +12,7 @@ const Header = () => {
 
   const handleLogOutUser = () => {
     dispatch(logOut());
+    setIsOpen(false);
   };
 
   const handleToggleTheme = () => {
@@ -56,7 +57,7 @@ const Header = () => {
 
           <button
             onClick={handleToggleTheme}
-            className={`p-2 rounded-full transition shadow-md ${
+            className={`p-1 rounded-full transition shadow-md ${
               theme === "dark" ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-100 hover:bg-gray-200"
             }`}
             title="Toggle Theme"
@@ -67,20 +68,22 @@ const Header = () => {
               <Moon className="text-gray-900" size={20} />
             )}
           </button>
-        </div>
 
-        <button className="md:hidden flex items-center" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
+          <button className="md:hidden flex items-center" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
 
         {isOpen && (
           <div
-            className={`absolute top-16 left-0 w-full flex flex-col items-center gap-5 py-5 shadow-md md:hidden z-50 ${
-              theme === "dark" ? "bg-gray-900 text-white" : "bg-indigo-600 text-white"
-            }`}
+            className={`absolute top-16 left-0 w-full flex flex-col items-center gap-5 py-5 shadow-md md:hidden z-50 transition-all duration-300 ${
+              isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5 pointer-events-none"
+            } ${theme === "dark" ? "bg-gray-900 text-white" : "bg-indigo-600 text-white"}`}
           >
             <ul className="flex flex-col gap-4 text-sm">
-              <li className="hover:text-yellow-400 cursor-pointer transition">Dashboard</li>
+              <li onClick={() => setIsOpen(false)} className="hover:text-yellow-400 cursor-pointer transition">
+                Dashboard
+              </li>
             </ul>
 
             {userName && (

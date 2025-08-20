@@ -28,7 +28,7 @@ const SignUp = () => {
   return (
     <>
       <div
-        className={`min-h-screen flex items-center justify-center transition-colors duration-300 ${
+        className={`min-h-screen px-3 flex items-center justify-center transition-colors duration-300 ${
           theme === "dark"
             ? "bg-gray-900 text-white"
             : "bg-gradient-to-br from-blue-100 via-indigo-200 to-purple-200 text-gray-900"
@@ -49,6 +49,7 @@ const SignUp = () => {
             <input
               type="text"
               placeholder="Enter your username"
+              autoComplete="username"
               className={`w-full px-3 py-2 rounded-lg transition outline-none shadow-sm ${
                 theme === "dark"
                   ? "bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-300"
@@ -64,6 +65,7 @@ const SignUp = () => {
             <input
               type="email"
               placeholder="Enter your email"
+              autoComplete="email"
               className={`w-full px-3 py-2 rounded-lg transition outline-none shadow-sm ${
                 theme === "dark"
                   ? "bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-300"
@@ -79,6 +81,7 @@ const SignUp = () => {
             <input
               type="password"
               placeholder="Enter your password"
+              autoComplete="current-password"
               className={`w-full px-3 py-2 rounded-lg transition outline-none shadow-sm ${
                 theme === "dark"
                   ? "bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-300"
