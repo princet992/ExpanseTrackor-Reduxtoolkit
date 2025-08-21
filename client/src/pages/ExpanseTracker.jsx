@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const ExpanseTracker = () => {
   const [isOpen, setIsOpen] = useState(false);
- const { theme } = useSelector((state) => state.Theme);
+  const { theme } = useSelector((state) => state.Theme);
 
   return (
     <div
@@ -15,7 +15,11 @@ const ExpanseTracker = () => {
       }`}
     >
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h2 className={`text-2xl font-bold text-center sm:text-left ${theme === "dark" ? "text-gray-100" : "text-slate-800"}`}>
+        <h2
+          className={`text-2xl font-bold text-center sm:text-left ${
+            theme === "dark" ? "text-gray-100" : "text-slate-800"
+          }`}
+        >
           Expanse Tracker
         </h2>
         <button

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../features/AuthSlice/AuthSlice";
+import { logOut } from "../../features/AuthSlice/AuthSlice";
 import { useState } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
-import { toggleTheme } from "../features/themeSlice/ThemeSlice";
+import { toggleTheme } from "../../features/themeSlice/ThemeSlice";
 
 const Header = () => {
   const dispatch = useDispatch();

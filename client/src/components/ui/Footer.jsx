@@ -12,7 +12,7 @@ const Footer = () => {
           : "bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 text-white"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 py-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 py-6 flex flex-col sm:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left">
           <h2 className="text-lg font-bold tracking-wide drop-shadow-sm">
             Expanse

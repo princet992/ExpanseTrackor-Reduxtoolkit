@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import ExpanseTracker from "../../pages/ExpanseTracker";
-import ExpanseSkelton from "../ExpanseSkelton";
+import ExpanseSkelton from "../loading Skelton/ExpanseSkelton";
 
 const DashBoard = () => {
   const { isLoading } = useSelector((state) => state.expanseData);

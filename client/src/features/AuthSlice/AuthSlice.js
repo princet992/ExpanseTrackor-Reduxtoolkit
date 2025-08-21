@@ -79,6 +79,7 @@ const AuthSlice = createSlice({
       (state, action) => {
         state.isLoading = false;
         state.isError = action.payload?.message || action.error.message;
+        state.token = null;
       }
     );
   },

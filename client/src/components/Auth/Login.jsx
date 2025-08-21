@@ -38,6 +38,7 @@ const Login = () => {
       setTimeout(() => navigate("/dashBoard", { replace: true }), 1000);
     }
   }, [token]);
+
   return (
     <>
       <div
@@ -113,9 +114,9 @@ const Login = () => {
               theme === "dark"
                 ? "bg-yellow-400 text-gray-900 hover:bg-yellow-300"
                 : "bg-indigo-600 text-white hover:bg-indigo-700"
-            }`}
+            } `}
           >
-            {isLoading || token ? "Logging in ..." : "Login"}
+            {isLoading ? "Logging in ..." : "Login"}
           </button>
 
           <p className="text-sm mt-4 text-center">
