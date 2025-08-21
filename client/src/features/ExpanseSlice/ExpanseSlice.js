@@ -50,7 +50,11 @@ const ExpanseSlice = createSlice({
     incomeHistory: [],
     expanseHistory: [],
   },
-  reducers: {},
+  reducers: {
+    removeTx: (state, action) => {
+      state.expanseTx = state.expanseTx.filter((tx) => tx.id !== action.payload.id);
+    },
+  },
 
   extraReducers: (builder) => {
     //post expanse data
@@ -92,4 +96,5 @@ const ExpanseSlice = createSlice({
   },
 });
 
+export const { removeTx } = ExpanseSlice.actions;
 export default ExpanseSlice.reducer;
