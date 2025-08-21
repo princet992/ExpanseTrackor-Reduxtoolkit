@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../features/AuthSlice/AuthSlice";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useId, useState } from "react";
+import { useState } from "react";
+import { Mail, Lock, User } from "lucide-react";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.Theme);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const {
     register,
@@ -19,8 +21,11 @@ const SignUp = () => {
   const formSubmit = async (data) => {
     try {
       await dispatch(registerUser(data)).unwrap();
+      setMessage("Registered Successfully 🎉");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
       reset();
-      navigate("/");
     } catch (error) {
       setError(error.message);
     }
@@ -41,16 +46,21 @@ const SignUp = () => {
           }`}
         >
           {error && <p className="text-red-500 text-center mb-3">{error}</p>}
+          {message && <p className="text-green-500 text-center mb-3">{message}</p>}
 
-          <h2 className="text-2xl font-bold mb-5 text-center drop-shadow-sm">Register</h2>
+          <h2 className="text-3xl font-extrabold mb-5 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
+            Create an account
+          </h2>
+          <p className="text-sm text-center mb-5 opacity-80">Sign up to get started with your account</p>
 
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label className="block mb-1 font-medium">Username</label>
+            <User className="absolute left-3 top-9 h-5 w-5 text-gray-400" />
             <input
               type="text"
               placeholder="Enter your username"
               autoComplete="username"
-              className={`w-full px-3 py-2 rounded-lg transition outline-none shadow-sm ${
+              className={`w-full px-3 pl-10 py-2 rounded-lg transition outline-none shadow-sm ${
                 theme === "dark"
                   ? "bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-300"
                   : "bg-gray-100 text-gray-900 placeholder-gray-600 focus:ring-2 focus:ring-indigo-400"
@@ -60,13 +70,14 @@ const SignUp = () => {
             {errors.userName && <p className="text-red-500 text-sm mt-1">{errors.userName.message}</p>}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label className="block mb-1 font-medium">Email</label>
+            <Mail className="absolute left-3 top-9 h-5 w-5 text-gray-400" />
             <input
               type="email"
               placeholder="Enter your email"
               autoComplete="email"
-              className={`w-full px-3 py-2 rounded-lg transition outline-none shadow-sm ${
+              className={`w-full px-3 pl-10 py-2 rounded-lg transition outline-none shadow-sm ${
                 theme === "dark"
                   ? "bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-300"
                   : "bg-gray-100 text-gray-900 placeholder-gray-600 focus:ring-2 focus:ring-indigo-400"
@@ -76,13 +87,14 @@ const SignUp = () => {
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label className="block mb-1 font-medium">Password</label>
+            <Lock className="absolute left-3 top-9 h-5 w-5 text-gray-400" />
             <input
               type="password"
               placeholder="Enter your password"
               autoComplete="current-password"
-              className={`w-full px-3 py-2 rounded-lg transition outline-none shadow-sm ${
+              className={`w-full px-3 pl-10 py-2 rounded-lg transition outline-none shadow-sm ${
                 theme === "dark"
                   ? "bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-yellow-300"
                   : "bg-gray-100 text-gray-900 placeholder-gray-600 focus:ring-2 focus:ring-indigo-400"

@@ -28,13 +28,14 @@ const AuthSlice = createSlice({
   initialState: {
     isLoading: false,
     isError: null,
-    userName: localStorage.getItem("userName" || null),
+    userName: localStorage.getItem("userName") || null,
     token: localStorage.getItem("token") || null,
     email: localStorage.getItem("email") || null,
     userId: localStorage.getItem("userId") || null,
   },
   reducers: {
     logOut: (state) => {
+      state.isLoading = false;
       state.token = null;
       state.email = null;
       state.userName = null;
@@ -64,14 +65,20 @@ const AuthSlice = createSlice({
     builder.addMatcher(
       (action) => action.type.endsWith("/pending"),
       (state) => {
-        // state.isLoading = true;
+        state.isLoading = true;
+      }
+    );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/fulfilled"),
+      (state) => {
+        state.isLoading = false;
       }
     );
     builder.addMatcher(
       (action) => action.type.endsWith("/rejected"),
       (state, action) => {
         state.isLoading = false;
-        state.isError = action.error.message;
+        state.isError = action.payload?.message || action.error.message;
       }
     );
   },

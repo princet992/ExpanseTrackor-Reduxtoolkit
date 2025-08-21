@@ -18,7 +18,9 @@ const Login = () => {
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
   const formSubmit = async (data) => {
     try {
@@ -95,7 +97,7 @@ const Login = () => {
             />
             <button
               type="button"
-              className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+              className="absolute right-3 top-9 text-gray-500 "
               onClick={() => setShowPassword((prev) => !prev)}
               tabIndex={-1}
             >
@@ -113,18 +115,7 @@ const Login = () => {
                 : "bg-indigo-600 text-white hover:bg-indigo-700"
             }`}
           >
-            {/* {isLoading ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="4" fill="none" />
-                  <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="4" />
-                </svg>
-                Logging in...
-              </span>
-            ) : (
-              "Login"
-            )} */}
-            Login
+            {isLoading || token ? "Logging in ..." : "Login"}
           </button>
 
           <p className="text-sm mt-4 text-center">
