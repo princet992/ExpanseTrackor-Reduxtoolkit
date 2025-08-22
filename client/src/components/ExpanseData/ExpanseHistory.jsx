@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteExpanseData } from "../../features/ExpanseSlice/ExpanseSlice";
-import { MoreVertical, Trash2, Edit } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 const ExpanseHistory = () => {
   const dispatch = useDispatch();
@@ -107,12 +107,13 @@ const ExpanseHistory = () => {
                       ₹ {tx.amount}
                     </td>
                     <td className="py-2 px-3 border border-slate-200">{new Date(tx.updatedAt).toLocaleString()}</td>
-                    <td className="py-2 px-3 border border-slate-200 text-center">
+                    <td className="py-2 px-3 border border-slate-200 text-center ">
                       <button
                         onClick={() => handleRemoveExpanseData(tx._id)}
-                        className="text-xs font-medium px-2 py-1 rounded-md bg-red-500 text-white hover:bg-red-600 transition"
+                        className="p-1 rounded-md hover:bg-red-100 dark:hover:bg-red-800 transition"
+                        title="Delete"
                       >
-                        Delete
+                        <Trash2 size={18} className="text-red-600 dark:text-red-400 hover:text-white" />
                       </button>
                     </td>
                   </tr>

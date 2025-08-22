@@ -4,9 +4,9 @@ import ExpanseSkelton from "../loading Skelton/ExpanseSkelton";
 
 const ProtectedRoute = ({ children }) => {
   const { token, isLoading } = useSelector((state) => state.Auth);
-  // if (isLoading) {
-  //   return <ExpanseSkelton />;
-  // }
+  if (isLoading) {
+    return <ExpanseSkelton />;
+  }
   if (!token) {
     return <Navigate to="/" />;
   }

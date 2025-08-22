@@ -27,15 +27,16 @@ const Login = () => {
       await dispatch(loginUser(data)).unwrap();
       setSuccess("Login successful 🎉 Redirecting...");
       setError("");
+      reset();
     } catch (error) {
       setError(error.message || "Something went wrong");
       setSuccess("");
     }
-    reset();
   };
   useEffect(() => {
     if (token) {
-      setTimeout(() => navigate("/dashBoard", { replace: true }), 1000);
+      const timer = setTimeout(() => navigate("/dashBoard", { replace: true }), 1000);
+      return () => clearTimeout(timer);
     }
   }, [token]);
 

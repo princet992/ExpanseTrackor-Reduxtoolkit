@@ -3,9 +3,10 @@ import { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getExpanseData } from "./features/ExpanseSlice/ExpanseSlice";
 
-import Header from "./components/ui/Header"
+import Header from "./components/ui/Header";
 import Footer from "./components/ui/Footer";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import ErrorPage from "./pages/ErrorPage";
 const Login = lazy(() => import("./components/Auth/Login"));
 const SignUp = lazy(() => import("./components/Auth/SignUp"));
 const DashBoard = lazy(() => import("./components/protectedRoute/DashBoard"));
@@ -34,6 +35,7 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </>
