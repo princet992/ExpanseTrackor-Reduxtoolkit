@@ -30,7 +30,8 @@ export const getExpanseData = async (req, res) => {
 
 export const removeExpanseData = async (req, res) => {
   try {
-    const deletedData = await ExpanseModel.deleteOne({ _id: req.body.id });
+     const { id } = req.params;
+    const deletedData = await ExpanseModel.deleteOne({ _id: id });
     if (deletedData.deletedCount !== 1) {
       res.status(400).send({ message: "Failed to find id" });
     } else {
