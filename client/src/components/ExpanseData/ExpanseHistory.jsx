@@ -16,9 +16,9 @@ const ExpanseHistory = () => {
   const incomeHover = theme === "dark" ? "hover:bg-blue-600" : "hover:bg-blue-50";
   const expenseHover = theme === "dark" ? "hover:bg-purple-600" : "hover:bg-violet-50";
 
-  const handleRemoveExpanseData = (Id) => {
+  const handleRemoveExpanseData = (tx) => {
     if (confirm("Are you sure")) {
-      dispatch(deleteExpanseData(Id));
+      dispatch(deleteExpanseData({id:tx._id,userId:tx.userId._id}));
     }
   };
 
@@ -57,7 +57,7 @@ const ExpanseHistory = () => {
                     <td className="py-2 px-3 border border-slate-200">{new Date(tx.updatedAt).toLocaleString()}</td>
                     <td className="py-2 px-3 border border-slate-200 text-center ">
                       <button
-                        onClick={() => handleRemoveExpanseData(tx._id)}
+                        onClick={() => handleRemoveExpanseData(tx)}
                         className="p-1 rounded-md hover:bg-red-100 dark:hover:bg-red-800 transition"
                         title="Delete"
                       >
@@ -109,7 +109,7 @@ const ExpanseHistory = () => {
                     <td className="py-2 px-3 border border-slate-200">{new Date(tx.updatedAt).toLocaleString()}</td>
                     <td className="py-2 px-3 border border-slate-200 text-center ">
                       <button
-                        onClick={() => handleRemoveExpanseData(tx._id)}
+                        onClick={() => handleRemoveExpanseData(tx)}
                         className="p-1 rounded-md hover:bg-red-100 dark:hover:bg-red-800 transition"
                         title="Delete"
                       >

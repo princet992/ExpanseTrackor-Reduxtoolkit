@@ -23,10 +23,10 @@ export const postExpanseData = createAsyncThunk("postExpanseData", async (data, 
 });
 
 //deleteExpnseData--
-export const deleteExpanseData = createAsyncThunk("removeExpanseData", async (Id, { rejectWithValue }) => {
+export const deleteExpanseData = createAsyncThunk("removeExpanseData", async ({ Id, userId }, { rejectWithValue }) => {
   try {
     const res = await api.delete(`txHistory/${Id}`);
-    return { data: res.data, Id };
+    return { data: res.data, Id, userId };
   } catch (error) {
     console.log(error);
     return rejectWithValue(error.messagae || "something went wrong");
@@ -89,11 +89,12 @@ const ExpanseSlice = createSlice({
 
     // deleteExpanse Data
     builder.addCase(deleteExpanseData.fulfilled, (state, action) => {
-      const { Id } = action.payload;
+      const { Id, userId } = action.payload;
       state.isLoading = false;
-      updateTransactions(state, Id);
+      state.expanseTx = state.expanseTx.filter((tx) => tx._id !== Id);
+      updateTransactions(state, userId);
     });
-    
+
     builder.addMatcher(
       (action) => action.type.endsWith("/pending"),
       (state) => {
