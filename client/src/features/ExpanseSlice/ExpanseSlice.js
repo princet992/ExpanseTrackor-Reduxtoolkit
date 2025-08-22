@@ -29,7 +29,7 @@ export const deleteExpanseData = createAsyncThunk("removeExpanseData", async ({ 
     return { data: res.data, Id, userId };
   } catch (error) {
     console.log(error);
-    return rejectWithValue(error.messagae || "something went wrong");
+    return rejectWithValue(error.message || "something went wrong");
   }
 });
 
@@ -89,10 +89,11 @@ const ExpanseSlice = createSlice({
 
     // deleteExpanse Data
     builder.addCase(deleteExpanseData.fulfilled, (state, action) => {
-      const { Id, userId } = action.payload;
-      state.isLoading = false;
-      state.expanseTx = state.expanseTx.filter((tx) => tx._id !== Id);
-      updateTransactions(state, userId);
+      console.log(action.payload)
+      // const { Id, userId } = action.payload;
+      // state.isLoading = false;
+      // state.expanseTx = state.expanseTx.filter((tx) => tx._id !== Id);
+      // updateTransactions(state, userId);
     });
 
     builder.addMatcher(
