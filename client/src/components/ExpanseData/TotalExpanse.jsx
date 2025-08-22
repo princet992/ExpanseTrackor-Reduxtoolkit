@@ -10,7 +10,7 @@ const TotalExpanse = () => {
   const options = {
     labels: hasData ? ["Income", "Expense"] : ["No Data"],
     colors: hasData ? ["#3B82F6", "#8B5CF6"] : ["#9CA3AF"],
-    series: hasData ? [totalIncome || 0, totalExpanse || 0] : [1],
+    series: hasData ? [totalIncome || 0, totalExpanse || 0] : [0],
     chart: {
       toolbar: { show: false },
       fontFamily: "Inter, sans-serif",

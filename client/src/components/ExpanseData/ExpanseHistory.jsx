@@ -1,6 +1,9 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteExpanseData } from "../../features/ExpanseSlice/ExpanseSlice";
+import { MoreVertical, Trash2, Edit } from "lucide-react";
 
 const ExpanseHistory = () => {
+  const dispatch = useDispatch();
   const { incomeHistory, expanseHistory } = useSelector((state) => state.expanseData);
 
   const { theme } = useSelector((state) => state.Theme);
@@ -12,6 +15,12 @@ const ExpanseHistory = () => {
   const evenRowBg = theme === "dark" ? "even:bg-gray-800" : "even:bg-white";
   const incomeHover = theme === "dark" ? "hover:bg-blue-600" : "hover:bg-blue-50";
   const expenseHover = theme === "dark" ? "hover:bg-purple-600" : "hover:bg-violet-50";
+
+  const handleRemoveExpanseData = (Id) => {
+    if (confirm("Are you sure")) {
+      dispatch(deleteExpanseData(Id));
+    }
+  };
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-5">
@@ -31,20 +40,30 @@ const ExpanseHistory = () => {
                   <th className="py-2 px-3 border border-slate-200">Description</th>
                   <th className="py-2 px-3 border border-slate-200">Amount</th>
                   <th className="py-2 px-3 border border-slate-200">Deposited on</th>
+                  <th className="py-2 px-3 border border-slate-200">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {incomeHistory.map((tx) => (
-                  <tr key={tx._id} className={`${oddRowBg} ${evenRowBg} ${incomeHover} transition`}>
+                  <tr key={tx._id} className={`${oddRowBg} ${evenRowBg} ${incomeHover} transition `}>
                     <td className="py-2 px-3 border border-slate-200">{tx.description}</td>
                     <td
                       className={`py-2 px-3 border border-slate-200 font-medium ${
-                        theme === "dark" ? "text-blue-400" : "text-blue-600"
+                        theme === "dark" ? "text-white" : "text-blue-600"
                       }`}
                     >
                       ₹ {tx.amount}
                     </td>
                     <td className="py-2 px-3 border border-slate-200">{new Date(tx.updatedAt).toLocaleString()}</td>
+                    <td className="py-2 px-3 border border-slate-200 text-center ">
+                      <button
+                        onClick={() => handleRemoveExpanseData(tx._id)}
+                        className="p-1 rounded-md hover:bg-red-100 dark:hover:bg-red-800 transition"
+                        title="Delete"
+                      >
+                        <Trash2 size={18} className="text-red-600 dark:text-red-400 hover:text-white" />
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -73,6 +92,7 @@ const ExpanseHistory = () => {
                   <th className="py-2 px-3 border border-slate-200">Description</th>
                   <th className="py-2 px-3 border border-slate-200">Amount</th>
                   <th className="py-2 px-3 border border-slate-200">Withdrawn on</th>
+                  <th className="py-2 px-3 border border-slate-200">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -81,12 +101,20 @@ const ExpanseHistory = () => {
                     <td className="py-2 px-3 border border-slate-200">{tx.description}</td>
                     <td
                       className={`py-2 px-3 border border-slate-200 font-medium ${
-                        theme === "dark" ? "text-purple-400" : "text-violet-600"
+                        theme === "dark" ? "text-white" : "text-violet-600"
                       }`}
                     >
                       ₹ {tx.amount}
                     </td>
                     <td className="py-2 px-3 border border-slate-200">{new Date(tx.updatedAt).toLocaleString()}</td>
+                    <td className="py-2 px-3 border border-slate-200 text-center">
+                      <button
+                        onClick={() => handleRemoveExpanseData(tx._id)}
+                        className="text-xs font-medium px-2 py-1 rounded-md bg-red-500 text-white hover:bg-red-600 transition"
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -30,7 +30,7 @@ const Footer = () => {
 
           <div className="flex gap-4">
             <a
-              href="https://github.com/princet992"
+              href="https://github.com/"
               target="_blank"
               rel="noopener noreferrer"
               className={`transition ${theme === "dark" ? "hover:text-yellow-400" : "hover:text-yellow-300"}`}

@@ -116,8 +116,8 @@ const Login = () => {
                 : "bg-indigo-600 text-white hover:bg-indigo-700"
             } `}
           >
-            {/* {isLoading ? "Logging in ..." : "Login"} */}
-            Login
+            {isLoading ? "Logging in ..." : "Login"}
+            {/* Login */}
           </button>
 
           <p className="text-sm mt-4 text-center">

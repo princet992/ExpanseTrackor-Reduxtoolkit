@@ -22,6 +22,17 @@ export const postExpanseData = createAsyncThunk("postExpanseData", async (data, 
   }
 });
 
+//deleteExpnseData--
+export const deleteExpanseData = createAsyncThunk("removeExpanseData", async (Id, { rejectWithValue }) => {
+  try {
+    const res = await api.delete(`txHistory/${Id}`);
+    return { data: res.data, Id };
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue(error.messagae || "something went wrong");
+  }
+});
+
 const updateTransactions = (state, userId) => {
   state.totalIncome = state.expanseTx
     .filter((tx) => tx.types === "income" && (tx.userId._id || tx.userId) === userId)
@@ -50,11 +61,7 @@ const ExpanseSlice = createSlice({
     incomeHistory: [],
     expanseHistory: [],
   },
-  reducers: {
-    removeTx: (state, action) => {
-      state.expanseTx = state.expanseTx.filter((tx) => tx.id !== action.payload.id);
-    },
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     //post expanse data
@@ -79,11 +86,25 @@ const ExpanseSlice = createSlice({
       state.expanseTx = sorted;
       updateTransactions(state, userId);
     });
+
+    // deleteExpanse Data
+    builder.addCase(deleteExpanseData.fulfilled, (state, action) => {
+      const { Id } = action.payload;
+      state.isLoading = false;
+      updateTransactions(state, Id);
+    });
+    
     builder.addMatcher(
       (action) => action.type.endsWith("/pending"),
       (state) => {
         state.isLoading = true;
         state.isError = null;
+      }
+    );
+    builder.addMatcher(
+      (action) => action.type.endsWith("/fulfilled"),
+      (state) => {
+        state.isLoading = false;
       }
     );
     builder.addMatcher(
@@ -96,5 +117,4 @@ const ExpanseSlice = createSlice({
   },
 });
 
-export const { removeTx } = ExpanseSlice.actions;
 export default ExpanseSlice.reducer;

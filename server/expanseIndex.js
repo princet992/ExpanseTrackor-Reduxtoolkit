@@ -2,27 +2,19 @@ import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { createExpanseData, getExpanseData } from "./controller/ExpanseController.js";
+import { createExpanseData, getExpanseData, removeExpanseData } from "./controller/ExpanseController.js";
 import { registerUsers, userLogin } from "./controller/AuthenticationController.js";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:5173/",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
-
-app.get("/health", (_, res) => res.status(200).send("ok"));
+app.use(cors());
 
 //create transaction
 app.post("/txHistory", createExpanseData);
 app.get("/txHistory/:userId", getExpanseData);
+app.delete("/txHistory/:id", removeExpanseData);
 
 //user Authentication
 app.post("/usersAuth", registerUsers);
