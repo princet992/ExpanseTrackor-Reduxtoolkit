@@ -17,7 +17,6 @@ const ExpanseHistory = () => {
   const expenseHover = theme === "dark" ? "hover:bg-purple-600" : "hover:bg-violet-50";
 
   const handleRemoveExpanseData = (tx) => {
-    // console.log(tx);
     if (confirm("Are you sure")) {
       dispatch(deleteExpanseData({ id: tx._id, userId: tx.userId._id }));
     }
