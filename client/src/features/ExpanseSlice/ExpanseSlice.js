@@ -92,7 +92,9 @@ const ExpanseSlice = createSlice({
       state.isLoading = false;
       const { userId, id } = action.payload;
       // getExpanseData(userId);
-      state.expanseTx = state.expanseTx.filter((tx) => tx._id !== id);
+      if (id) {
+        state.expanseTx = state.expanseTx.filter((tx) => tx._id !== id);
+      }
       updateTransactions(state, userId);
     });
 

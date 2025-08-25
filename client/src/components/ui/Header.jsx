@@ -11,7 +11,9 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogOutUser = () => {
-    dispatch(logOut());
+    if (confirm("Are u sure")) {
+      dispatch(logOut());
+    }
     setIsOpen(false);
   };
 

@@ -18,7 +18,7 @@ const ExpanseHistory = () => {
 
   const handleRemoveExpanseData = (tx) => {
     if (confirm("Are you sure")) {
-      dispatch(deleteExpanseData({ id: tx._id, userId: tx.userId._id }));
+      dispatch(deleteExpanseData({ id: tx._id, userId: tx.userId._id })).then(() => getExpanseData(tx.userId._id));
     }
   };
 
