@@ -91,7 +91,6 @@ const ExpanseSlice = createSlice({
     builder.addCase(deleteExpanseData.fulfilled, (state, action) => {
       state.isLoading = false;
       const { userId, id } = action.payload;
-      // getExpanseData(userId);
       if (id) {
         state.expanseTx = state.expanseTx.filter((tx) => tx._id !== id);
       }
