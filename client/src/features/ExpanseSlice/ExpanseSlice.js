@@ -27,7 +27,6 @@ export const deleteExpanseData = createAsyncThunk("removeExpanseData", async ({ 
   try {
     const res = await api.delete(`txHistory/${id}`);
     return { id, userId };
-    // return res.data;
   } catch (error) {
     console.log(error);
     return rejectWithValue(error.message || "something went wrong");

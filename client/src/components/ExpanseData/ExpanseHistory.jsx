@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteExpanseData, getExpanseData } from "../../features/ExpanseSlice/ExpanseSlice";
 import { Trash2 } from "lucide-react";
+import { useEffect } from "react";
 
 const ExpanseHistory = () => {
   const dispatch = useDispatch();
-  const { incomeHistory, expanseHistory } = useSelector((state) => state.expanseData);
+  const { incomeHistory, expanseHistory, expanseTx } = useSelector((state) => state.expanseData);
 
   const { theme } = useSelector((state) => state.Theme);
+  const { userId } = useSelector((state) => state.Auth);
 
   const incomeHeaderBg = theme === "dark" ? "bg-blue-700" : "bg-blue-500";
   const expenseHeaderBg = theme === "dark" ? "bg-purple-700" : "bg-violet-500";
@@ -21,7 +23,6 @@ const ExpanseHistory = () => {
       dispatch(deleteExpanseData({ id: tx._id, userId: tx.userId._id }));
     }
   };
-
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-5">
       <div className={`shadow-md  overflow-hidden ${cardBg}`}>
